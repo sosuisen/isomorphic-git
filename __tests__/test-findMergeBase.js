@@ -211,6 +211,17 @@ describe('findMergeBase', () => {
       ],
     })
     expect(base).toEqual(['21605c3fda133ae46f000a375c92c889fa0688ba'])
+
+    // merge commit and its parent
+    base = await findMergeBase({
+      fs,
+      gitdir,
+      oids: [
+        '423489657e9529ecf285637eb21f40c8657ece3f', // M
+        '8d0e46852781eed81d32b91517f5d5f0979575c4', // E
+      ],
+    })
+    expect(base).toEqual(['8d0e46852781eed81d32b91517f5d5f0979575c4']) // E
   })
   it('recursive merge base scenarios', async () => {
     // Setup
