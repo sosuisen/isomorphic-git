@@ -30,6 +30,7 @@ describe('exports', () => {
         "fetch",
         "findMergeBase",
         "findRoot",
+        "findSupremum",
         "getConfig",
         "getConfigAll",
         "getRemoteInfo",
