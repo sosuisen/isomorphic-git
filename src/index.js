@@ -22,6 +22,7 @@ import { fastForward } from './api/fastForward.js'
 import { fetch } from './api/fetch.js'
 import { findMergeBase } from './api/findMergeBase.js'
 import { findRoot } from './api/findRoot.js'
+import { findSupremum } from './api/findSupremum.js'
 import { getConfig } from './api/getConfig.js'
 import { getConfigAll } from './api/getConfigAll.js'
 import { getRemoteInfo } from './api/getRemoteInfo.js'
@@ -95,6 +96,7 @@ export {
   fetch,
   findMergeBase,
   findRoot,
+  findSupremum,
   getRemoteInfo,
   getRemoteInfo2,
   hashBlob,
@@ -165,6 +167,7 @@ export default {
   fetch,
   findMergeBase,
   findRoot,
+  findSupremum,
   getRemoteInfo,
   getRemoteInfo2,
   hashBlob,

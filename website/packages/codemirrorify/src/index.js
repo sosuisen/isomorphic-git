@@ -70,6 +70,7 @@ export function codemirrorify (doc) {
                 "fetch",
                 "findMergeBase",
                 "findRoot",
+                "findSupremum",
                 "getConfig",
                 "getConfigAll",
                 "getRemoteInfo",
