@@ -28,6 +28,8 @@ export async function _findSupremum({
 
   branchPoints[behindOid] = true
 
+  let root = ''
+
   /**
    * @param {string[]} commits
    */
@@ -61,6 +63,10 @@ export async function _findSupremum({
           })
           next.push(...parent)
         }
+
+        if (parent === undefined || parent.length === 0) {
+          root = oid
+        }
       }
       // console.log('next: ' + JSON.stringify(next))
 
@@ -73,7 +79,7 @@ export async function _findSupremum({
         else if (prevChildren !== children) nextParentHasSameChildren = false
       }
 
-      if (behindCommitVisited && next.length === 0) return lastBranchPoint
+      // if (behindCommitVisited && next.length === 0) return lastBranchPoint
 
       if (
         behindCommitVisited &&
@@ -81,6 +87,9 @@ export async function _findSupremum({
       ) {
         // Start backtrack
         let backtrackCommit = next[0]
+        if (root !== '') {
+          backtrackCommit = root
+        }
         while (backtrackCommit) {
           if (branchPoints[backtrackCommit]) {
             return backtrackCommit
