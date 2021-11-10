@@ -156,15 +156,19 @@ export async function _push({
         oids: [oid, oldoid],
       })
       */
-      const mergebase = await _findSupremum({
-        fs,
-        cache,
-        gitdir,
-        aheadOid: oid,
-        behindOid: oldoid,
-      })
+
+      const mergebase = [
+        await _findSupremum({
+          fs,
+          cache,
+          gitdir,
+          aheadOid: oid,
+          behindOid: oldoid,
+        }),
+      ]
 
       for (const oid of mergebase) finish.push(oid)
+
       if (thinPack) {
         skipObjects = await listObjects({ fs, cache, gitdir, oids: mergebase })
       }
