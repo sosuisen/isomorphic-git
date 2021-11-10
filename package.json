@@ -1,5 +1,5 @@
 {
-  "name": "isomorphic-git",
+  "name": "@sosuisen/isomorphic-git",
   "version": "0.0.0-development",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isomorphic-git/isomorphic-git.git"
+    "url": "https://github.com/sosuisen/isomorphic-git.git"
   },
   "keywords": [
     "git",
