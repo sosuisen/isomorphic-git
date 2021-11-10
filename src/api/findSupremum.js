@@ -13,8 +13,8 @@ import { join } from '../utils/join.js'
  * @param {FsClient} args.fs - a file system client
  * @param {string} [args.dir] - The [working tree](dir-vs-gitdir.md) directory path
  * @param {string} [args.gitdir=join(dir,'.git')] - [required] The [git directory](dir-vs-gitdir.md) path
- * @param {string} args.aheadOid
- * @param {string} args.behindOid
+ * @param {string} [args.aheadOid] - ahead commit oid
+ * @param {string} [args.behindOid] - behind commit oid (may be remote branch)
  * @param {object} [args.cache] - a [cache](cache.md) object
  *
  */

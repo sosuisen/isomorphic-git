@@ -24,7 +24,7 @@ export async function _findSupremum({
   const visited = {}
   const parentChildrenMap = new Map()
   const branchPoints = {}
-  let lastBranchPoint = ''
+  // let lastBranchPoint = ''
 
   branchPoints[behindOid] = true
 
@@ -43,7 +43,7 @@ export async function _findSupremum({
 
         if (visited[oid]) {
           branchPoints[oid] = true
-          lastBranchPoint = oid
+          //          lastBranchPoint = oid
           continue
         }
         visited[oid] = true

@@ -2,7 +2,7 @@
 import '../typedefs.js'
 
 import { _currentBranch } from '../commands/currentBranch.js'
-import { _findMergeBase } from '../commands/findMergeBase.js'
+import { _findSupremum } from '../commands/findSupremum'
 import { _isDescendent } from '../commands/isDescendent.js'
 import { listCommitsAndTags } from '../commands/listCommitsAndTags.js'
 import { listObjects } from '../commands/listObjects.js'
@@ -148,12 +148,22 @@ export async function _push({
     // If remote branch is present, look for a common merge base.
     if (oldoid !== '0000000000000000000000000000000000000000') {
       // trick to speed up common force push scenarios
+      /*
       const mergebase = await _findMergeBase({
         fs,
         cache,
         gitdir,
         oids: [oid, oldoid],
       })
+      */
+      const mergebase = await _findSupremum({
+        fs,
+        cache,
+        gitdir,
+        aheadOid: oid,
+        behindOid: oldoid,
+      })
+
       for (const oid of mergebase) finish.push(oid)
       if (thinPack) {
         skipObjects = await listObjects({ fs, cache, gitdir, oids: mergebase })
