@@ -1,6 +1,6 @@
 {
   "name": "@sosuisen/isomorphic-git",
-  "version": "0.0.0-development",
+  "version": "1.10.1-alpha.2",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
   "type": "module",
   "typings": "./index.d.ts",
@@ -20,8 +20,7 @@
     "build": "nps build",
     "test": "nps test",
     "publish-website": "nps website",
-    "prepublishOnly": "nps prepublish",
-    "semantic-release": "semantic-release",
+    "prepublishOnly": "npm run build",
     "add-contributor": "nps contributors.add"
   },
   "repository": {

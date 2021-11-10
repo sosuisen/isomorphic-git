@@ -199,3 +199,18 @@ describe('findSupremum', () => {
     expect(base).toEqual('30ee70896d0d377d6711488bdd5e115037f2b0f7') // B
   })
 })
+
+describe('findSupremum (2)', () => {
+  it.only('A child who is an end branch point and its branched ancestor, a common parent is a start branch point which is the root', async () => {
+    // Setup
+    const { fs, gitdir } = await makeFixture('test-findSupremum2')
+    // Test
+    const base = await findSupremum({
+      fs,
+      gitdir,
+      aheadOid: '9c1d6231c0368a7ef1223288468d532ed7fe9b87', // D
+      behindOid: '2780272e46be35cb4ba0ce7055a0621c3ca9e90b', // C
+    })
+    expect(base).toEqual('d2e8efb27766ff7c76b1f262f47928550168e7e5') // A
+  })
+})
