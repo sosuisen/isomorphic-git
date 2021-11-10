@@ -23,6 +23,7 @@ sidebar_label: Alphabetical Index
 - [fetch](fetch)
 - [findMergeBase](findMergeBase)
 - [findRoot](findRoot)
+- [findSupremum](findSupremum)
 - [getConfig](getConfig)
 - [getConfigAll](getConfigAll)
 - [getRemoteInfo](getRemoteInfo)

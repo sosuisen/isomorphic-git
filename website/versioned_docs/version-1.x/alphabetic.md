@@ -25,6 +25,7 @@ original_id: alphabetic
 - [fetch](fetch)
 - [findMergeBase](findMergeBase)
 - [findRoot](findRoot)
+- [findSupremum](findSupremum)
 - [getConfig](getConfig)
 - [getConfigAll](getConfigAll)
 - [getRemoteInfo](getRemoteInfo)

@@ -94,6 +94,7 @@ docs/fastForward.md
 docs/fetch.md
 docs/findMergeBase.md
 docs/findRoot.md
+docs/findSupremum.md
 docs/getConfig.md
 docs/getConfigAll.md
 docs/getRemoteInfo.md

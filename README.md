@@ -160,6 +160,7 @@ unless there is a major version bump.
 - [fetch](https://isomorphic-git.github.io/docs/fetch.html)
 - [findMergeBase](https://isomorphic-git.github.io/docs/findMergeBase.html)
 - [findRoot](https://isomorphic-git.github.io/docs/findRoot.html)
+- [findSupremum](https://isomorphic-git.github.io/docs/findSupremum.html)
 - [getConfig](https://isomorphic-git.github.io/docs/getConfig.html)
 - [getConfigAll](https://isomorphic-git.github.io/docs/getConfigAll.html)
 - [getRemoteInfo](https://isomorphic-git.github.io/docs/getRemoteInfo.html)
