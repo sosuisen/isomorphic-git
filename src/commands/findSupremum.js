@@ -42,7 +42,7 @@ export async function _findSupremum({
         if (oid === behindOid) behindCommitVisited = true
 
         if (visited[oid]) {
-          branchPoints[oid] = true
+          // branchPoints[oid] = true
           //          lastBranchPoint = oid
           continue
         }
@@ -81,6 +81,10 @@ export async function _findSupremum({
         // console.log(prevChildren + ',' + children)
         if (prevChildren === '') prevChildren = children
         else if (prevChildren !== children) nextParentHasSameChildren = false
+
+        if (visited[parent]) {
+          branchPoints[parent] = true
+        }
       }
 
       if (next.length > 1 && nextParentsAreSame) {

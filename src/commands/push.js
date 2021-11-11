@@ -167,7 +167,10 @@ export async function _push({
         }),
       ]
 
-      for (const oid of mergebase) finish.push(oid)
+      for (const oid of mergebase) {
+        if (oid === undefined) throw new PushRejectedError('not-fast-forward')
+        finish.push(oid)
+      }
 
       if (thinPack) {
         skipObjects = await listObjects({ fs, cache, gitdir, oids: mergebase })

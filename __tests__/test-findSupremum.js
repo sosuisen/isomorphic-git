@@ -198,10 +198,36 @@ describe('findSupremum', () => {
     })
     expect(base).toEqual('30ee70896d0d377d6711488bdd5e115037f2b0f7') // B
   })
+
+  it('A child who is an end branch point and its branched ancestor whose branch is longer than another branch', async () => {
+    // Setup
+    const { fs, gitdir } = await makeFixture('test-findSupremum')
+    // Test
+    const base = await findSupremum({
+      fs,
+      gitdir,
+      aheadOid: '4013a8b4f7ba9ae9a975d206d1d8538511661e88', // F
+      behindOid: '3ad4237a564e9fc36d4b52271f7fde8420671f3e', // D
+    })
+    expect(base).toEqual('30ee70896d0d377d6711488bdd5e115037f2b0f7') // B
+  })
+
+  it('A child who is an end branch point and its branched ancestor whose branch is longer than another branch, a common parent is root', async () => {
+    // Setup
+    const { fs, gitdir } = await makeFixture('test-findSupremum')
+    // Test
+    const base = await findSupremum({
+      fs,
+      gitdir,
+      aheadOid: 'ae1a5f2cd7f24c8d026c46337b3bf7cd345d2c41', // J
+      behindOid: '3ad4237a564e9fc36d4b52271f7fde8420671f3e', // D
+    })
+    expect(base).toEqual('f2a80819723d21c08c9bc01b2ff593d308f8f546') // A
+  })
 })
 
 describe('findSupremum (2)', () => {
-  it('The next parents are the same', async () => {
+  it('The next parents are the same and a root', async () => {
     // Setup
     const { fs, gitdir } = await makeFixture('test-findSupremum2')
     // Test
@@ -212,5 +238,35 @@ describe('findSupremum (2)', () => {
       behindOid: '2780272e46be35cb4ba0ce7055a0621c3ca9e90b', // C
     })
     expect(base).toEqual('d2e8efb27766ff7c76b1f262f47928550168e7e5') // A
+  })
+})
+
+describe('findSupremum (3)', () => {
+  it('The next parents are the same and not a root', async () => {
+    // Setup
+    const { fs, gitdir } = await makeFixture('test-findSupremum3')
+    // Test
+    const base = await findSupremum({
+      fs,
+      gitdir,
+      aheadOid: '1256edf17c3ad70f621b01f233c0d63a8874c61f', // E
+      behindOid: 'fb35bb4ab78dbb2ade2c9daed90f4de190cfa385', // D
+    })
+    expect(base).toEqual('2043b5eb1ea396c6e2a83644a7a1a5d6108b0d9a') // B
+  })
+})
+
+describe('findSupremum (4)', () => {
+  it('The next parent is only one and a visited branch point', async () => {
+    // Setup
+    const { fs, gitdir } = await makeFixture('test-findSupremum4')
+    // Test
+    const base = await findSupremum({
+      fs,
+      gitdir,
+      aheadOid: '73ced871326c0e060d60192d0fee7ff468d36789', // E
+      behindOid: 'b086577ad5022d6fc216a9ce5ad7c2addfc24ec8', // D
+    })
+    expect(base).toEqual('b13de7a1e6e969325b653287c4df40608e974cb2') // A
   })
 })
