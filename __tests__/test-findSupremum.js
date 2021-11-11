@@ -201,7 +201,7 @@ describe('findSupremum', () => {
 })
 
 describe('findSupremum (2)', () => {
-  it.only('A child who is an end branch point and its branched ancestor, a common parent is a start branch point which is the root', async () => {
+  it('The next parents are the same', async () => {
     // Setup
     const { fs, gitdir } = await makeFixture('test-findSupremum2')
     // Test
