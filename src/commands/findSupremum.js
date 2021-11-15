@@ -18,7 +18,7 @@ export async function _findSupremum({
   aheadOid,
   behindOid,
 }) {
-  if (aheadOid === behindOid) return Promise.resolve(aheadOid)
+  if (aheadOid === behindOid) return aheadOid
 
   let behindCommitVisited = false
   const visited = {}
@@ -105,12 +105,12 @@ export async function _findSupremum({
         while (backtrackCommit) {
           // console.log('backtrack: ' + backtrackCommit)
           if (branchPoints[backtrackCommit]) {
-            return Promise.resolve(backtrackCommit)
+            return backtrackCommit
           }
           // backtrack next
           const children = parentChildrenMap.get(backtrackCommit)
           // children is not undefined if it works normally
-          if (children === undefined) return Promise.resolve(undefined)
+          if (children === undefined) return undefined
           else backtrackCommit = children[0] // Either children[0] or children[1] is OK when children.length is 2.
         }
       } else if (next.length !== 0) {
@@ -119,16 +119,15 @@ export async function _findSupremum({
     } catch (err) {
       // do nothing
     }
-    return Promise.resolve(undefined) // Error
+    return undefined // Error
   }
   const { object } = await readObject({ fs, cache, gitdir, oid: aheadOid })
   const commit = GitCommit.from(object)
   const { parent } = commit.parseHeaders()
-  if (parent === undefined || parent.length === 0)
-    return Promise.resolve(aheadOid)
+  if (parent === undefined || parent.length === 0) return aheadOid
 
-  if (parent.length === 1 && parent[0] === behindOid)
-    return Promise.resolve(behindOid)
+  if (parent.length === 1 && parent[0] === behindOid) return behindOid
 
-  return await _goBackCommitTree(parent)
+  const result = await _goBackCommitTree(parent)
+  return result
 }
