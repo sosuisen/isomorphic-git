@@ -1,4 +1,5 @@
 // @ts-check
+import { _findMergeBase } from '../commands/findMergeBase'
 import { GitCommit } from '../models/GitCommit.js'
 import { _readObject as readObject } from '../storage/readObject.js'
 
@@ -18,8 +19,8 @@ export async function _findSupremum({
   aheadOid,
   behindOid,
 }) {
-  if (aheadOid === behindOid) return Promise.resolve(aheadOid)
-
+  if (aheadOid === behindOid) return Promise.resolve([aheadOid])
+  /*
   let behindCommitVisited = false
   const visited = {}
   const parentChildrenMap = new Map()
@@ -29,10 +30,12 @@ export async function _findSupremum({
   branchPoints[behindOid] = true
 
   let root = ''
+  */
 
   /**
    * @param {string[]} commits
    */
+  /*
   async function _goBackCommitTree(commits) {
     try {
       const next = []
@@ -121,14 +124,44 @@ export async function _findSupremum({
     }
     return Promise.resolve(undefined) // Error
   }
-  const { object } = await readObject({ fs, cache, gitdir, oid: aheadOid })
-  const commit = GitCommit.from(object)
-  const { parent } = commit.parseHeaders()
-  if (parent === undefined || parent.length === 0)
-    return Promise.resolve(aheadOid)
+  */
+  // return await _goBackCommitTree(parent)
 
-  if (parent.length === 1 && parent[0] === behindOid)
-    return Promise.resolve(behindOid)
+  // Check fast-forward cases
+  let nextParents = [aheadOid]
+  while (nextParents.length === 1) {
+    const { object } = await readObject({
+      fs,
+      cache,
+      gitdir,
+      oid: nextParents[0],
+    })
+    const commit = GitCommit.from(object)
+    const { parent } = commit.parseHeaders()
+    if (parent === undefined || parent.length === 0)
+      return Promise.resolve([aheadOid])
 
-  return await _goBackCommitTree(parent)
+    if (parent.length === 1 && parent[0] === behindOid)
+      return Promise.resolve([behindOid])
+
+    nextParents = parent
+  }
+  // nextParents includes multiple parents
+
+  for (let i = 0; i < nextParents.length; i++) {
+    const mergebase = await _findMergeBase({
+      fs,
+      cache,
+      gitdir,
+      oids: [nextParents[i], behindOid],
+    })
+
+    if (nextParents.length > 1) {
+      // aheadOid has multiple parents
+      if (mergebase.length > 0 && mergebase[0] === behindOid) {
+        continue
+      }
+    }
+    return mergebase
+  }
 }

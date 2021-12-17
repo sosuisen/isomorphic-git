@@ -157,15 +157,13 @@ export async function _push({
       })
       */
 
-      const mergebase = [
-        await _findSupremum({
-          fs,
-          cache,
-          gitdir,
-          aheadOid: oid,
-          behindOid: oldoid,
-        }),
-      ]
+      const mergebase = await _findSupremum({
+        fs,
+        cache,
+        gitdir,
+        aheadOid: oid,
+        behindOid: oldoid,
+      })
 
       for (const oid of mergebase) {
         if (oid === undefined) throw new PushRejectedError('not-fast-forward')
