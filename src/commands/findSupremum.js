@@ -108,12 +108,12 @@ export async function _findSupremum({
         while (backtrackCommit) {
           // console.log('backtrack: ' + backtrackCommit)
           if (branchPoints[backtrackCommit]) {
-            return Promise.resolve(backtrackCommit)
+            return backtrackCommit
           }
           // backtrack next
           const children = parentChildrenMap.get(backtrackCommit)
           // children is not undefined if it works normally
-          if (children === undefined) return Promise.resolve(undefined)
+          if (children === undefined) return undefined
           else backtrackCommit = children[0] // Either children[0] or children[1] is OK when children.length is 2.
         }
       } else if (next.length !== 0) {
@@ -122,7 +122,7 @@ export async function _findSupremum({
     } catch (err) {
       // do nothing
     }
-    return Promise.resolve(undefined) // Error
+    return undefined // Error
   }
   */
   // return await _goBackCommitTree(parent)
